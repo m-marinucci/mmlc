@@ -4,6 +4,7 @@ FROM python:3.8-buster
 # Set the working directory in the container
 WORKDIR /app
 
+
 # Install system and build dependencies
 # (include other dependencies as required)
 RUN apt-get update && apt-get install -y \
@@ -13,6 +14,9 @@ RUN apt-get update && apt-get install -y \
 
 # Install Jupyter
 RUN pip install jupyter
+
+RUN jupyter notebook --generate-config && \
+    echo "c.NotebookApp.password_required = False" >> /root/.jupyter/jupyter_notebook_config.py
 
 # Copy the current directory contents into the container at /app
 COPY . /app
@@ -28,6 +32,11 @@ RUN chmod +x /start-jupyter.sh
 
 # Expose the port Jupyter will run on
 EXPOSE 8888
+
+# Set the PATH environment variable
+ENV PATH="/usr/bin:${PATH}"
+
+
 
 # Run the startup script
 CMD ["/start-jupyter.sh"]
