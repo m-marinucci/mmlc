@@ -1,0 +1,13 @@
+numpy
+pandas
+opencv-python
+openai
+langchain
+unstructured[all-docs]
+Pillow
+pydantic
+lxml
+matplotlib
+chromadb
+tiktoken
+watermark
